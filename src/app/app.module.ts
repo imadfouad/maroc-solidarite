@@ -13,7 +13,6 @@ import { AppRoutingModule } from './app-routing.module';
 import { ContactComponent } from './contact/contact.component';
 import { HttpClientModule } from '@angular/common/http';
 import { ReactiveFormsModule } from '@angular/forms';
-import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 
 
 
@@ -28,7 +27,6 @@ import { AngularFireAuthModule } from '@angular/fire/compat/auth';
     BrowserModule,
     AngularFireModule.initializeApp(environment.firebaseConfig),
     AngularFirestoreModule,
-    AngularFireAuthModule,
      AppRoutingModule,
      FormsModule, 
      HttpClientModule,
