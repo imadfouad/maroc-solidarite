@@ -1,0 +1,78 @@
+<div class="card container">
+  <div class="card-header  text-center">
+      Liste des Villages et leurs Besoins | قائمة القرى واحتياجاتها
+  </div>
+
+  <div class="card-body">
+    <div class="input-group mb-3">
+      <input type="text" [(ngModel)]="searchTerm" placeholder="Rechercher un village..." class="form-control my-custom-input">
+    </div>
+      <table class="table table-bordered">
+          <thead>
+              <tr>
+                  <th>Nom du Village | اسم القرية</th>
+                  <th>Médicaments | أدوية</th>
+                  <th>Alimentation | غذاء</th>
+                  <th>Habits | ملابس</th>
+                  <th>Couettes et Draps | لحاف وشراشف</th>
+                  <th>Commentaires | تعليقات</th>
+              </tr>
+          </thead>
+          
+          <tbody>
+
+              <tr *ngFor="let village of villages">
+                <ng-container *ngIf="village.nom.toLowerCase().includes(searchTerm.toLowerCase())">
+                  <td>{{ village.nom }}</td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" (click)="decrement(village, 'medicaments')">-</button>
+                    {{ village.medicaments }}
+                    <button class="btn btn-outline-primary btn-sm" (click)="increment(village, 'medicaments')">+</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" (click)="decrement(village, 'alimentation')">-</button>
+                    {{ village.alimentation }}
+                    <button class="btn btn-outline-primary btn-sm" (click)="increment(village, 'alimentation')">+</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" (click)="decrement(village, 'habits')">-</button>
+                    {{ village.habits }}
+                    <button class="btn btn-outline-primary btn-sm" (click)="increment(village, 'habits')">+</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-outline-primary btn-sm" (click)="decrement(village, 'draps')">-</button>
+                    {{ village.draps }}
+                    <button class="btn btn-outline-primary btn-sm" (click)="increment(village, 'draps')">+</button>
+                  </td>
+                  <td>
+                    <button class="btn btn-info" (click)="viewComments(village)">Voir commentaires</button>
+                  </td>
+                </ng-container>
+              </tr>
+          </tbody>
+      </table>
+  </div>
+</div>
+
+
+<div class="modal fade" id="commentsModal" tabindex="-1" aria-labelledby="commentsModalLabel" aria-hidden="true">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="commentsModalLabel">Commentaires pour {{ currentVillage?.nom }}</h5>
+        <button type="button" class="btn-close"  (click)="closeModal()" data-dismiss="modal" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <ul>
+          <li *ngFor="let comment of villageComments">{{ comment.text }} ({{ comment.displayTime }})</li>
+        </ul>
+        <textarea  class="my-textarea" [(ngModel)]="newComment" placeholder="Ajouter un commentaire..."></textarea>
+      </div>
+      <div class="modal-footer">
+          <button type="button" class="btn btn-secondary"  (click)="closeModal()" data-dismiss="modal">Fermer</button>
+          <button type="button" class="btn btn-primary" (click)="addComment(newComment)">Ajouter un commentaire</button>
+      </div>
+
+    </div>
+  </div>
+</div>
